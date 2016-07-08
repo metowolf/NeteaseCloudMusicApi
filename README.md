@@ -12,7 +12,7 @@ NeteaseCloudMusicApi
  - [x] 单曲解析
  - [ ] 移动端新 API
 
-### Thinks 
+### Thanks 
 | Name                 | License | Author        |
 | :---:                | :---:   | :---:         | 
 | Math_BigInteger      | MIT     | Jim Wigginton |
