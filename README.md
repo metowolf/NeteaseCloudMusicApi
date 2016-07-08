@@ -13,12 +13,13 @@ NeteaseCloudMusicApi
  - [ ] 移动端新 API
 
 ### Thanks 
-| Name                 | License | Author        |
-| :---:                | :---:   | :---:         | 
-| Math_BigInteger      | MIT     | Jim Wigginton |
-| NetEase-MusicBox     | MIT     | darknessomi   |
-| NeteaseCloudMusicApi | -       | axhello       |
-| NeteaseCloud Music   | -       | Netease Inc.  |
+| Name                 | License | Author        | Link                              |
+| :---:                | :---:   | :---:         | :---:                             |
+| Math_BigInteger      | MIT     | Jim Wigginton | [PHP](https://pear.php.net/package/Math_BigInteger)|
+| Algorithm            | -       | stkevintan    | [Blog](http://sfork.coding.me/2015/07/23/nwmusicboxapi/)|
+| NetEase-MusicBox     | MIT     | darknessomi   | [Github](https://github.com/darknessomi/musicbox)|
+| NeteaseCloudMusicApi | -       | axhello       | [Github](https://github.com/axhello/NeteaseCloudMusicApi)|
+| NeteaseCloud Music   | -       | Netease Inc.  | [LINK](http://www.163.com/)|
 
 
 ### Get Started
@@ -42,6 +43,10 @@ var_dump(json_decode($result));
 
 ```
 
+### Link
+ - [METO Blog](https://i-meto.com/)
+
+
 ### License
 NeteaseCloudMusicApi is under the MIT license.
 
@@ -64,6 +69,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-### Link
- - [METO Blog](https://i-meto.com/)
