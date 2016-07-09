@@ -121,14 +121,14 @@ class MusicAPI{
         return $this->curl($url,$this->prepare($data));
     }
     
-    public function url($song_id){
+    public function url($song_id,$br=320000){
         $url='http://music.163.com/weapi/song/enhance/player/url?csrf_token=';
         if(is_array($song_id))$s='["'.implode('","',$song_id).'"]';
         else $s='["'.$song_id.'"]';
         $data=array(
             'params'=>'{
                 "ids":'.$s.',
-                "br":"320000",
+                "br":"'.$br.'",
                 "csrf_token":""
             }',
         );
