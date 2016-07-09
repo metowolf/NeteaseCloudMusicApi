@@ -91,7 +91,7 @@ class MusicAPI{
     }
 
     public function search($s,$type=1,$limit=30,$offset=0){
-        $url='http://music.163.com/weapi/cloudsearch/get/web?csrf_token=';
+        $url='http://music.163.com/weapi/search/pc';
         $data=array(
             'params'=>'{"s":"'.$s.'","type":"'.$type.'","limit":"'.$limit.'","offset":"'.$offset.'","csrf_token":""}',
         );
