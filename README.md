@@ -37,6 +37,7 @@ $result = $api->search('hello');
 // $result = $api->detail('35847388');
 // $result = $api->albums('3377030');
 // $result = $api->playlist('124394335');
+// $result = $api->url('35847388');
 
 # return JSON, just use it
 var_dump(json_decode($result));

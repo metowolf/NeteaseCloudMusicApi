@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api
  * https://i-meto.com
- * Version 2.0.0
+ * Version 2.0.1
  *
  * Copyright 2016, METO
  * Released under the MIT license
