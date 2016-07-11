@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api
  * https://i-meto.com
- * Version 2.1.0
+ * Version 2.1.1
  *
  * Copyright 2016, METO
  * Released under the MIT license
@@ -148,6 +148,7 @@ class MusicAPI{
         $data=array(
             'params'=>'{
                 "id":"'.$playlist_id.'",
+                "n":"1000",
                 "csrf_token":""
             }',
         );
