@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api
  * https://i-meto.com
- * Version 2.1.0
+ * Version 2.0.1
  *
  * Copyright 2016, METO
  * Released under the MIT license
@@ -17,8 +17,8 @@ class MusicAPI{
     protected $_nonce='0CoJUm6Qyw8W8jud';
     protected $_pubKey='010001';
     protected $_vi='0102030405060708';
-    protected $_userAgent='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.157 Safari/537.36';
-    protected $_cookie='os=pc; osver=Microsoft-Windows-10-Professional-build-10586-64bit; appver=2.0.3.131777; channel=netease; __remember_me=true';
+    protected $_userAgent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2774.3 Safari/537.36';
+    protected $_cookie='appver=2.0.2';
     protected $_secretKey;
     
     public function __construct(){
@@ -91,25 +91,17 @@ class MusicAPI{
     }
 
     public function search($s,$type=1,$limit=30,$offset=0){
-        $url='http://music.163.com/weapi/cloudsearch/get/web?csrf_token=';
+        $url='http://music.163.com/weapi/search/pc';
         $data=array(
-            'params'=>'{
-                "s":"'.$s.'",
-                "type":"'.$type.'",
-                "limit":"'.$limit.'",
-                "total":"true",
-                "offset":"'.$offset.'",
-                "csrf_token":""
-            }',
+            'params'=>'{"s":"'.$s.'","type":"'.$type.'","limit":"'.$limit.'","offset":"'.$offset.'","csrf_token":""}',
         );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function albums($album_id){
-        $url='http://music.163.com/weapi/v1/album/'.$album_id.'?csrf_token=';
+        $url='http://music.163.com/weapi/album/'.$album_id;
         $data=array(
             'params'=>'{
-                "id":"'.$album_id.'",
                 "csrf_token":""
             }',
         );
@@ -117,7 +109,7 @@ class MusicAPI{
     }
 
     public function detail($song_id){
-        $url='http://music.163.com/weapi/v1/song/detail';
+        $url='http://music.163.com/weapi/song/detail';
         if(is_array($song_id))$s='["'.implode('","',$song_id).'"]';
         else $s='["'.$song_id.'"]';
         $data=array(
@@ -144,7 +136,7 @@ class MusicAPI{
     }
 
     public function playlist($playlist_id){
-        $url='http://music.163.com/weapi/v3/playlist/detail?csrf_token=';
+        $url='http://music.163.com/weapi/playlist/detail';
         $data=array(
             'params'=>'{
                 "id":"'.$playlist_id.'",
@@ -154,33 +146,19 @@ class MusicAPI{
         return $this->curl($url,$this->prepare($data));
     }
 
+    // old
     public function lyric($song_id){
-        $url='http://music.163.com/weapi/song/lyric?csrf_token=';
-        $data=array(
-            'params'=>'{
-                "id":"'.$song_id.'",
-                "os":"pc",
-                "lv":"-1",
-                "kv":"-1",
-                "tv":"-1",
-                "csrf_token":""
-            }',
-        );
-        return $this->curl($url,$this->prepare($data));
+        $url='http://music.163.com/api/song/lyric';
+        $data='os=pc&id='.$song_id.'&lv=-1&kv=-1&tv=-1';
+        return $this->curl($url,$data);
     }
 
+    // old
     public function mv($mv_id){
-        $url='http://music.163.com/weapi/mv/detail/';
-        $data=array(
-            'params'=>'{
-                "id":"'.$mv_id.'",
-                "csrf_token":""
-            }',
-        );
-        return $this->curl($url,$this->prepare($data));
+        $url='http://music.163.com/api/mv/detail/?id='.$mv_id.'&type=mp4';
+        return $this->curl($url);
     }
-    
-    /* 旧版 API 部分 */
+
     public function id2url($id){
         if($id==null)return null;
         $byte1[]=$this->Str2Arr('3go8&$8*3*3h0k(2)2');
@@ -195,6 +173,7 @@ class MusicAPI{
         $result=str_replace('+','-',$result);
         return $result;
     }
+
     protected function Str2Arr($string){
         $bytes=[];
         for($i=0;$i<strlen($string);$i++){
