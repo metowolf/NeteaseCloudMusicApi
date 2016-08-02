@@ -1,20 +1,21 @@
 NeteaseCloudMusicApi
 =================
 网易云音乐 API - PHP 版  
-基于网易云音乐 web 端接口改写的 PHP 版本  
+基于网易云音乐 web 端接口改写的 PHP 版本， 建议 PHP 5.6 以上环境  
 本 API 为个人学习作品，请支持正版音乐，勿滥用
 
 ### Function
  - [x] 关键字搜索
- - [x] 获取歌曲地址
- - [x] 歌单解析
+ - [x] 歌手热门单曲
+ - [x] 歌曲详细信息
  - [x] 专辑解析
- - [x] 单曲解析
+ - [x] 歌单解析
+ - [x] 歌曲地址获取
  - [x] 歌词解析
  - [x] MV 解析
  - [ ] 移动端新 API
 
-### Thanks 
+### Thanks
 | Name                 | License | Author        | Link                              |
 | :---:                | :---:   | :---:         | :---:                             |
 | Math_BigInteger      | MIT     | Jim Wigginton | [PHP](https://pear.php.net/package/Math_BigInteger)|
@@ -28,7 +29,7 @@ NeteaseCloudMusicApi
 
 ```php
 # just download the MusicAPI.php into directory, require it with the correct path.
-# in version 2, you should put BigInteger.php into same directory, but don't require it.
+# in version 2, you should also put BigInteger.php into same directory, but don't require it.
 require_once 'MusicAPI.php';
 
 # Initialize
@@ -36,8 +37,9 @@ $api = new MusicAPI();
 
 # Get data
 $result = $api->search('hello');
+// $result = $api->artist('46487');
 // $result = $api->detail('35847388');
-// $result = $api->albums('3377030');
+// $result = $api->album('3377030');
 // $result = $api->playlist('124394335');
 // $result = $api->url('35847388');
 // $result = $api->lyric('35847388');
