@@ -41,7 +41,7 @@ $result = $api->search('hello');
 // $result = $api->detail('35847388');
 // $result = $api->album('3377030');
 // $result = $api->playlist('124394335');
-// $result = $api->url('35847388');
+// $result = $api->url('35847388'); # v2 only
 // $result = $api->lyric('35847388');
 // $result = $api->mv('501053');
 

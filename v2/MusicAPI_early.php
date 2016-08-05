@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api - early
  * https://i-meto.com
- * Version 2.2.0
+ * Version 2.2.0 (20160805)
  *
  * Copyright 2016, METO
  * Released under the MIT license
@@ -93,91 +93,91 @@ class MusicAPI{
     // main function
     public function search($s,$limit=30,$offset=0,$type=1){
         $url='http://music.163.com/weapi/search/pc';
-        $data=[
+        $data=array(
             's'=>$s,
             'type'=>$type,
             'limit'=>$limit,
             'total'=>'true',
             'offset'=>$offset,
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function artist($id){
         $url='http://music.163.com/weapi/artist/'.$id.'?csrf_token=';
-        $data=[
+        $data=array(
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function album($album_id){
         $url='http://music.163.com/weapi/album/'.$album_id.'?csrf_token=';
-        $data=[
+        $data=array(
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function detail($song_id){
         $url='http://music.163.com/weapi/song/detail';
-        if(!is_array($song_id))$song_id=[$song_id];
-        $data=[
+        if(!is_array($song_id))$song_id=array($song_id);
+        $data=array(
             'ids'=>$song_id,
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function url($song_id,$br=999000){
         $url='http://music.163.com/weapi/song/enhance/player/url?csrf_token=';
-        if(!is_array($song_id))$song_id=[$song_id];
-        $data=[
+        if(!is_array($song_id))$song_id=array($song_id);
+        $data=array(
             'ids'=>$song_id,
             'br'=>$br,
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function playlist($playlist_id){
         $url='http://music.163.com/weapi/playlist/detail?csrf_token=';
-        $data=[
+        $data=array(
             'id'=>$playlist_id,
             'n'=>1000,
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function lyric($song_id){
         $url='http://music.163.com/weapi/song/lyric?csrf_token=';
-        $data=[
+        $data=array(
             'id'=>$song_id,
             'os'=>'pc',
             'lv'=>-1,
             'kv'=>-1,
             'tv'=>-1,
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     public function mv($mv_id){
         $url='http://music.163.com/weapi/mv/detail/';
-        $data=[
+        $data=array(
             'id'=>$mv_id,
             'csrf_token'=>'',
-        ];
+        );
         return $this->curl($url,$this->prepare($data));
     }
 
     /* static url encrypt, use for pic*/
     public function Id2Url($id){
         if($id==null)return null;
-        $byte1[]=$this->Str2Arr('3go8&$8*3*3h0k(2)2');
-        $byte2[]=$this->Str2Arr($id);
+        $byte1=$this->Str2Arr('3go8&$8*3*3h0k(2)2');
+        $byte2=$this->Str2Arr($id);
         $magic=$byte1[0];
         $song_id=$byte2[0];
         for($i=0;$i<count($song_id);$i++){
@@ -189,17 +189,13 @@ class MusicAPI{
         return $result;
     }
     protected function Str2Arr($string){
-        $bytes=[];
-        for($i=0;$i<strlen($string);$i++){
-            $bytes[]=ord($string[$i]);
-        }
+        $bytes=array();
+        for($i=0;$i<strlen($string);$i++)$bytes=ord($string[$i]);
         return $bytes;
     }
     protected function Arr2Str($bytes){
         $str='';
-        for($i=0;$i<count($bytes);$i++){
-            $str.=chr($bytes[$i]);
-        }
+        for($i=0;$i<count($bytes);$i++)$str.=chr($bytes[$i]);
         return $str;
     }
 }
