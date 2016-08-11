@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api - mini
  * https://i-meto.com
- * Version 2.2.0
+ * Version 20160811
  *
  * Copyright 2016, METO
  * Released under the MIT license
@@ -69,8 +69,8 @@ class MusicAPI{
         return $this->curl($url,$this->prepare($data));
     }
 
-    public function artist($id){
-        $url='http://music.163.com/weapi/v1/artist/'.$id.'?csrf_token=';
+    public function artist($artist_id){
+        $url='http://music.163.com/weapi/v1/artist/'.$artist_id.'?csrf_token=';
         $data=array(
             'csrf_token'=>'',
         );
@@ -86,7 +86,7 @@ class MusicAPI{
     }
 
     public function detail($song_id){
-        $url='http://music.163.com/weapi/v1/song/detail';
+        $url='http://music.163.com/weapi/v1/song/detail?csrf_token=';
         if(!is_array($song_id))$song_id=array($song_id);
         $data=array(
             'ids'=>$song_id,
@@ -130,7 +130,7 @@ class MusicAPI{
     }
 
     public function mv($mv_id){
-        $url='http://music.163.com/weapi/mv/detail/';
+        $url='http://music.163.com/weapi/mv/detail?csrf_token=';
         $data=array(
             'id'=>$mv_id,
             'csrf_token'=>'',
@@ -140,14 +140,11 @@ class MusicAPI{
 
     /* static url encrypt, use for pic*/
     public function Id2Url($id){
-        if($id==null)return null;
-        $byte1=$this->Str2Arr('3go8&$8*3*3h0k(2)2');
-        $byte2=$this->Str2Arr($id);
+        $byte1[]=$this->Str2Arr('3go8&$8*3*3h0k(2)2');
+        $byte2[]=$this->Str2Arr($id);
         $magic=$byte1[0];
         $song_id=$byte2[0];
-        for($i=0;$i<count($song_id);$i++){
-            $song_id[$i]=$song_id[$i]^$magic[$i%count($magic)];
-        }
+        for($i=0;$i<count($song_id);$i++)$song_id[$i]=$song_id[$i]^$magic[$i%count($magic)];
         $result=base64_encode(md5($this->Arr2Str($song_id),1));
         $result=str_replace('/','_',$result);
         $result=str_replace('+','-',$result);
@@ -155,7 +152,7 @@ class MusicAPI{
     }
     protected function Str2Arr($string){
         $bytes=array();
-        for($i=0;$i<strlen($string);$i++)$bytes=ord($string[$i]);
+        for($i=0;$i<strlen($string);$i++)$bytes[]=ord($string[$i]);
         return $bytes;
     }
     protected function Arr2Str($bytes){
