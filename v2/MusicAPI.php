@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api
  * https://i-meto.com
- * Version 20160811
+ * Version 20160813
  *
  * Copyright 2016, METO
  * Released under the MIT license
@@ -121,10 +121,9 @@ class MusicAPI{
     }
 
     public function detail($song_id){
-        $url='http://music.163.com/weapi/v1/song/detail?csrf_token=';
-        if(!is_array($song_id))$song_id=array($song_id);
+        $url='http://music.163.com/weapi/v3/song/detail?csrf_token=';
         $data=array(
-            'ids'=>$song_id,
+            'c'=>'['.json_encode(array('id'=>$song_id)).']',
             'csrf_token'=>'',
         );
         return $this->curl($url,$this->prepare($data));
