@@ -2,13 +2,13 @@
 /*!
  * Netease Cloud Music Api
  * https://i-meto.com
- * Version 20160811 v1
+ * Version 1 stop support
  *
  * Copyright 2016, METO
  * Released under the MIT license
  */
 
-class MusicAPI{
+class NeteaseMusicAPI{
 
 
     // General

@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api - mini
  * https://i-meto.com
- * Version 20160813
+ * Version 3.0.0
  *
  * Copyright 2016, METO
  * Released under the MIT license
@@ -11,9 +11,10 @@
 
 
 
-class MusicAPI{
+class NeteaseMusicAPI{
 
     // General
+    protected $_MINI_MODE=false;
     protected $_MODULUS='00e0b509f6259df8642dbc35662901477df22677ec152b5ff68ace615bb7b725152b3ab17a876aea8a5aa76d2e417629ec4ee341f56135fccf695280104e0312ecbda92557c93870114af6c9d05c4f7f0c3685b7a46bee255932575cce10b424d813cfe4875d3e82047b97ddef52741d546b8e289dc6935b3ece0462db0a22b8e7';
     protected $_NONCE='0CoJUm6Qyw8W8jud';
     protected $_PUBKEY='010001';
@@ -66,7 +67,13 @@ class MusicAPI{
             'offset'=>$offset,
             'csrf_token'=>'',
         );
-        return $this->curl($url,$this->prepare($data));
+        $raw=$this->curl($url,$this->prepare($data));
+        if($this->_MINI_MODE){
+            $this->_MINI_MODE=false;
+            $raw=json_decode($raw,1);
+            return json_encode($this->clear_data($raw["result"]["songs"]));
+        }
+        else return $raw;
     }
 
     public function artist($artist_id){
@@ -74,7 +81,13 @@ class MusicAPI{
         $data=array(
             'csrf_token'=>'',
         );
-        return $this->curl($url,$this->prepare($data));
+        $raw=$this->curl($url,$this->prepare($data));
+        if($this->_MINI_MODE){
+            $this->_MINI_MODE=false;
+            $raw=json_decode($raw,1);
+            return json_encode($this->clear_data($raw["hotSongs"]));
+        }
+        else return $raw;
     }
 
     public function album($album_id){
@@ -82,7 +95,13 @@ class MusicAPI{
         $data=array(
             'csrf_token'=>'',
         );
-        return $this->curl($url,$this->prepare($data));
+        $raw=$this->curl($url,$this->prepare($data));
+        if($this->_MINI_MODE){
+            $this->_MINI_MODE=false;
+            $raw=json_decode($raw,1);
+            return json_encode($this->clear_data($raw["songs"]));
+        }
+        else return $raw;
     }
 
     public function detail($song_id){
@@ -91,7 +110,13 @@ class MusicAPI{
             'c'=>'['.json_encode(array('id'=>$song_id)).']',
             'csrf_token'=>'',
         );
-        return $this->curl($url,$this->prepare($data));
+        $raw=$this->curl($url,$this->prepare($data));
+        if($this->_MINI_MODE){
+            $this->_MINI_MODE=false;
+            $raw=json_decode($raw,1);
+            return json_encode($this->clear_data($raw["songs"]));
+        }
+        else return $raw;
     }
 
     public function url($song_id,$br=999000){
@@ -112,7 +137,13 @@ class MusicAPI{
             'n'=>1000,
             'csrf_token'=>'',
         );
-        return $this->curl($url,$this->prepare($data));
+        $raw=$this->curl($url,$this->prepare($data));
+        if($this->_MINI_MODE){
+            $this->_MINI_MODE=false;
+            $raw=json_decode($raw,1);
+            return json_encode($this->clear_data($raw["playlist"]["tracks"]));
+        }
+        else return $raw;
     }
 
     public function lyric($song_id){
@@ -135,6 +166,29 @@ class MusicAPI{
             'csrf_token'=>'',
         );
         return $this->curl($url,$this->prepare($data));
+    }
+
+    protected function clear_data($result){
+        // you can modify it by yourself, change to your API?!
+        foreach($result as $key=>$vo){
+            $data[$key]=array(
+                'id'=>$key,
+                'songid'=>$vo["id"],
+                'name'=>$vo["name"],
+                'cover'=>'http://p4.music.126.net/'.self::Id2Url($vo['al']["pic_str"]).'/'.$vo['al']["pic_str"].'.jpg',
+                'url'=>'http://music.163.com/song/media/outer/url?id='.$vo["id"],
+                //'lyric'=>$vo["id"],
+                'artist'=>array(),
+            );
+            foreach($vo['ar'] as $vvo)$data[$key]['artist'][]=$vvo['name'];
+            $data[$key]['artist']=implode('/',$data[$key]['artist']);
+        }
+        return $data;
+    }
+
+    public function mini(){
+        $this->_MINI_MODE=true;
+        return $this;
     }
 
     /* static url encrypt, use for pic*/
