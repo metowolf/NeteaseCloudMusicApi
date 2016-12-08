@@ -175,7 +175,7 @@ class NeteaseMusicAPI{
                 'id'=>$key,
                 'songid'=>$vo["id"],
                 'name'=>$vo["name"],
-                'cover'=>'http://p4.music.126.net/'.self::Id2Url($vo['al']["pic_str"]).'/'.$vo['al']["pic_str"].'.jpg',
+                'cover'=>'https://p4.music.126.net/'.self::Id2Url($vo['al']["pic_str"]).'/'.$vo['al']["pic_str"].'.jpg',
                 'url'=>'http://music.163.com/song/media/outer/url?id='.$vo["id"],
                 //'lyric'=>$vo["id"],
                 'artist'=>array(),
