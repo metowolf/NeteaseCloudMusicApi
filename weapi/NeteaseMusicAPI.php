@@ -2,7 +2,7 @@
 /*!
  * Netease Cloud Music Api - mini
  * https://i-meto.com
- * Version 3.0.0
+ * Version 3.0.1
  *
  * Copyright 2016, METO
  * Released under the MIT license
@@ -211,7 +211,7 @@ class NeteaseMusicAPI{
                 'id'=>$key,
                 'songid'=>$vo["id"],
                 'name'=>$vo["name"],
-                'cover'=>'https://p4.music.126.net/'.self::Id2Url($vo['al']["pic_str"]).'/'.$vo['al']["pic_str"].'.jpg',
+                'cover'=>'https://p4.music.126.net/'.self::Id2Url($vo['al']["pic_str"]?:$vo['al']["pic"]).'/'.($vo['al']["pic_str"]?:$vo['al']["pic"]).'.jpg',
                 'url'=>'http://music.163.com/song/media/outer/url?id='.$vo["id"],
                 //'lyric'=>$vo["id"],
                 'artist'=>array(),
